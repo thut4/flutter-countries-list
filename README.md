@@ -1,6 +1,5 @@
-# flutter_country
 
-A new Flutter project.
+# flutter_country
 
 ## Getting Started
 
