@@ -2,9 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_country/api/apiservices.dart';
-import 'package:flutter_country/screens/detail_screen.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import '../models/country.dart';
+import 'detail_screen.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,12 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ApiServices apiServices = ApiServices(Dio());
+  ApiServices apiServices = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Countries List'),
+          title: const Text('Countries Info'),
         ),
         body: FutureBuilder<List<Country>>(
           future: apiServices.getCountries(),
@@ -38,23 +40,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget item(Country country, context) {
-    return ListTile(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailPage(apiServices, country.name),
-            ));
-      },
-      leading: CachedNetworkImage(
-        imageUrl: 'https://countryflagsapi.com/png/${country.alpha2Code}',
-        width: 50,
-        height: 50,
-        placeholder: (_, __) =>
-            const Center(child: CircularProgressIndicator()),
+    return Card(
+      child: ListTile(
+        onTap: () {
+          Get.to(() => DetailPage(country.name));
+        },
+        leading: CachedNetworkImage(
+          imageUrl: 'https://countryflagsapi.com/png/${country.alpha2Code}',
+          width: 50,
+          height: 50,
+          placeholder: (_, __) =>
+              const Center(child: CircularProgressIndicator()),
+        ),
+        title: Text(
+          country.name,
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(
+          country.region,
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+        ),
       ),
-      title: Text(country.name),
-      subtitle: Text(country.region),
     );
   }
 }

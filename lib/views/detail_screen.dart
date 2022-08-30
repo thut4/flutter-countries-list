@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_country/api/apiservices.dart';
+import 'package:get/get.dart';
 
 import '../models/detail.dart';
 
 class DetailPage extends StatelessWidget {
-  final ApiServices apiServices;
+  final ApiServices apiServices = Get.find();
   final String countryName;
-  DetailPage(this.apiServices, this.countryName);
+  DetailPage(this.countryName);
 
   @override
   Widget build(BuildContext context) {
