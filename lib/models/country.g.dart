@@ -6,11 +6,13 @@ part of 'country.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Country _$CountryFromJson(Map<String, dynamic> json) => Country(
-      name: json['name'] as String,
-      region: json['region'] as String,
-      alpha2Code: json['alpha2Code'] as String,
-    );
+Country _$CountryFromJson(Map<String, dynamic> json) {
+  return Country(
+    name: json['name'] as String,
+    region: json['region'] as String,
+    alpha2Code: json['alpha2Code'] as String,
+  );
+}
 
 Map<String, dynamic> _$CountryToJson(Country instance) => <String, dynamic>{
       'name': instance.name,
